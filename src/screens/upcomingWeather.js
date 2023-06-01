@@ -48,7 +48,7 @@ const toRender = ({ item }) => {
   )
 }
 
-const upcomingWeather = () => {
+const UpcomingWeather = () => {
   return (
     <SafeAreaView style={container}>
       <ImageBackground
@@ -79,4 +79,4 @@ const { container, image } = StyleSheet.create({
   }
 })
 
-export default upcomingWeather
+export default UpcomingWeather

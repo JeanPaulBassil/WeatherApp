@@ -1,19 +1,32 @@
-import React from 'react'
-import { View, StyleSheet } from 'react-native'
-import CurrentWeather from './src/screens/currentWeather'
-import UpcomingWeather from './src/screens/upcomingWeather'
-import City from './src/screens/City'
+import { useState } from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import Tabs from './src/components/Tabs'
+import { ActivityIndicator, StyleSheet, View } from 'react-native'
+
+const Tab = createBottomTabNavigator()
 
 const App = () => {
+  const [loading, setLoading] = useState(true)
+
+  if (loading) {
+    return (
+      <View style={container}>
+        <ActivityIndicator size={'large'} color={'blue'} />
+      </View>
+    )
+  }
+
   return (
-    <View style={styles.container}>
-      <CurrentWeather />
-    </View>
+    <NavigationContainer>
+      <Tabs />
+    </NavigationContainer>
   )
 }
 
-const styles = StyleSheet.create({
+const { container } = StyleSheet.create({
   container: {
+    justifyContent: 'center',
     flex: 1
   }
 })

@@ -9,21 +9,24 @@ import {
 } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import IconText from '../components/IconText'
+import moment from 'moment'
 
-const City = () => {
+const City = ({ weatherData }) => {
+  console.log(weatherData)
+  const { name, country, population, sunrise, sunset } = weatherData
   return (
     <SafeAreaView style={container}>
       <ImageBackground
-        source={require('../../assets/cityBackground.jpg')}
+        source={require('../../assets/city.jpg')}
         style={imageLayout}
       >
-        <Text style={[cityName, cityText]}>London</Text>
-        <Text style={[countryName, cityText]}>UK</Text>
+        <Text style={[cityName, cityText]}>{name}</Text>
+        <Text style={[countryName, cityText]}>{country}</Text>
         <View style={populationWrapper}>
           <IconText
             name="user"
             color="red"
-            text="8000"
+            text={`${population}`}
             bodyTextStyles={populationText}
           />
         </View>
@@ -31,13 +34,13 @@ const City = () => {
           <IconText
             name="sunrise"
             color="white"
-            text="10:46:58am"
+            text={moment(sunrise * 1000).format('h:mm:ss A')}
             bodyTextStyles={riseSetText}
           />
           <IconText
             name="sunset"
             color="white"
-            text="17:28:15pm"
+            text={moment(sunset * 1000).format('h:mm:ss A')}
             bodyTextStyles={riseSetText}
           />
         </View>
@@ -62,24 +65,28 @@ const {
     marginTop: StatusBar.currentHeight || 0
   },
   imageLayout: {
-    flex: 1
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#A8B6C8'
   },
   cityName: {
-    fontSize: 40
+    fontSize: 45,
+    color: '#FFFFFF',
+    fontWeight: 'bold'
   },
   countryName: {
-    fontSize: 30
+    fontSize: 35,
+    color: '#D6D9DC'
   },
   cityText: {
     justifyContent: 'center',
-    alignSelf: 'center',
-    fontWeight: 'bold',
-    color: 'white'
+    alignSelf: 'center'
   },
   populationText: {
     fontSize: 25,
     marginLeft: 7.5,
-    color: 'red'
+    color: '#F4F7FA'
   },
   populationWrapper: {
     flexDirection: 'row',
@@ -89,13 +96,15 @@ const {
   },
   riseSetText: {
     fontSize: 20,
-    color: 'white'
+    color: '#D6D9DC'
   },
   riseSetWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    marginTop: 20
+    marginTop: 20,
+    width: '100%',
+    justifyContent: 'space-evenly'
   }
 })
 

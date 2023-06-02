@@ -1,7 +1,6 @@
 import React from 'react'
 import {
   SafeAreaView,
-  Text,
   StyleSheet,
   FlatList,
   StatusBar,
@@ -10,56 +9,29 @@ import {
 import { Feather } from '@expo/vector-icons'
 import Item from '../components/ListItem'
 
-const DATA = [
-  {
-    dtText: '2023-02-18 12:00:00',
-    main: {
-      tempMax: 8.55,
-      tempMin: 7.55
-    },
-    weather: [{ main: 'Clear' }]
-  },
-  {
-    dtText: '2023-02-18 15:00:00',
-    main: {
-      tempMax: 8.55,
-      tempMin: 7.55
-    },
-    weather: [{ main: 'Clouds' }]
-  },
-  {
-    dtText: '2023-02-18 18:00:00',
-    main: {
-      tempMax: 8.55,
-      tempMin: 7.55
-    },
-    weather: [{ main: 'Rain' }]
-  }
-]
-
 const toRender = ({ item }) => {
   return (
     <Item
-      dtText={item.dtText}
-      max={item.main.tempMax}
-      min={item.main.tempMin}
+      dtText={item.dt_txt}
+      max={item.main.temp_max}
+      min={item.main.temp_min}
       condition={item.weather[0].main}
     />
   )
 }
 
-const UpcomingWeather = () => {
+const UpcomingWeather = ({ weatherData }) => {
+  console.log(weatherData)
   return (
     <SafeAreaView style={container}>
       <ImageBackground
-        source={require('../../assets/upcomingBackground.jpg')}
+        source={require('../../assets/background.jpg')}
         style={image}
       >
-        <Text>Upcoming weather</Text>
         <FlatList
-          data={DATA}
+          data={weatherData}
           renderItem={toRender}
-          keyExtractor={(item) => item.dtText}
+          keyExtractor={(item) => item.dt_txt}
         />
       </ImageBackground>
     </SafeAreaView>
@@ -70,12 +42,13 @@ const { container, image } = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
-    backgroundColor: 'royalblue'
+    backgroundColor: '#58586e'
   },
   image: {
     // height: 100,
     // width: 100
-    flex: 1
+    flex: 1,
+    resizeMode: 'cover'
   }
 })
 

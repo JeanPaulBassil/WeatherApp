@@ -1,28 +1,37 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Feather } from '@expo/vector-icons'
+import { weatherType } from '../utilities/weatherType'
+import moment from 'moment'
 
 const Item = (props) => {
+  // console.log(props)
   const { dtText, max, min, condition } = props
   return (
     <View style={item}>
-      <Feather name="sun" size={50} color="black" />
-
-      <Text style={date}>{dtText}</Text>
-      <Text style={temp}>{min}</Text>
-      <Text style={temp}>{max}</Text>
+      <Feather name={weatherType[condition].icon} size={50} color="white" />
+      <View style={info}>
+        <View style={dateTextWrapper}>
+          <Text style={date}>{moment(dtText).format('dddd')}</Text>
+          <Text style={date}>{moment(dtText).format('h:mm A')}</Text>
+        </View>
+        <Text style={temp}>
+          {Math.round(min)}°C - {Math.round(max)}°C
+        </Text>
+      </View>
     </View>
   )
 }
 
-const { temp, date, item } = StyleSheet.create({
+const { temp, date, item, info, dateTextWrapper } = StyleSheet.create({
   temp: {
-    color: 'white',
+    color: '#ffffff',
     fontSize: 20
   },
   date: {
-    color: 'white',
-    fontSize: 15
+    color: '#ffffff',
+    fontSize: 15,
+    marginBottom: 10
   },
   item: {
     padding: 20,
@@ -32,7 +41,23 @@ const { temp, date, item } = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     borderWidth: 5,
-    backgroundColor: 'pink'
+    backgroundColor: '#58586e',
+    borderRadius: 10,
+    borderWidth: 0,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2
+  },
+  info: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  dateTextWrapper: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })
 

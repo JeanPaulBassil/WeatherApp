@@ -6,7 +6,8 @@ const Item = ({ name, color, text, bodyTextStyles }) => {
   const { textStyle, container } = StyleSheet.create({
     textStyle: {
       ...bodyTextStyles,
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      color: '#F4F7FA'
     },
     container: {
       alignItems: 'center',
@@ -16,7 +17,7 @@ const Item = ({ name, color, text, bodyTextStyles }) => {
 
   return (
     <View style={container}>
-      <Feather name={name} size={50} color={color} />
+      <Feather name={name} size={50} color={'#F4F7FA'} />
       <Text style={textStyle}>{text}</Text>
     </View>
   )

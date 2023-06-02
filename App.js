@@ -1,26 +1,33 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Tabs from './src/components/Tabs'
 import { ActivityIndicator, StyleSheet, View } from 'react-native'
+import * as Location from 'expo-location'
+import { useGetWeather } from './src/hooks/useGetWeather'
+import ErrorItem from './src/components/ErrorItem'
+//
 
 const Tab = createBottomTabNavigator()
 
 const App = () => {
-  const [loading, setLoading] = useState(true)
+  const [loading, error, weather] = useGetWeather()
 
-  if (loading) {
+  if (weather && weather.list) {
     return (
-      <View style={container}>
-        <ActivityIndicator size={'large'} color={'blue'} />
-      </View>
+      <NavigationContainer>
+        <Tabs weather={weather} />
+      </NavigationContainer>
     )
   }
-
   return (
-    <NavigationContainer>
-      <Tabs />
-    </NavigationContainer>
+    <View style={container}>
+      {error ? (
+        <ErrorItem error={error} />
+      ) : (
+        <ActivityIndicator size="large" color="blue" />
+      )}
+    </View>
   )
 }
 

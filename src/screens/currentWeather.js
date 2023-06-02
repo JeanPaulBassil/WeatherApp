@@ -6,16 +6,32 @@ import { Feather } from '@expo/vector-icons'
 import RowText from '../components/RowText'
 import { weatherType } from '../utilities/weatherType'
 
-const CurrentWeather = () => {
+const CurrentWeather = ({ weatherData }) => {
+  const {
+    main: { temp, feels_like, temp_max, temp_min },
+    weather
+  } = weatherData
+
+  const weatherCondition = weather[0].main
+
   return (
-    <SafeAreaView style={wrapper}>
+    <SafeAreaView
+      style={[
+        wrapper,
+        { backgroundColor: weatherType[weatherCondition].backgroundColor }
+      ]}
+    >
       <View style={container}>
-        <Feather name="sun" size={100} color="black" />
-        <Text style={temp}>6</Text>
-        <Text style={feels}>Feels like 5</Text>
+        <Feather
+          name={weatherType[weatherCondition]?.icon}
+          size={100}
+          color="white"
+        />
+        <Text style={tempStyles}>{Math.round(temp)}°C</Text>
+        <Text style={feels}>Feels like {Math.round(feels_like)}°C</Text>
         <RowText
-          first="High: 8 "
-          second="Low: 6"
+          first={`High: ${Math.round(temp_max)}°C `}
+          second={`Low: ${Math.round(temp_min)}°C`}
           styles={{
             wrapper: highLowWrapper,
             firstText: highLow,
@@ -24,8 +40,8 @@ const CurrentWeather = () => {
         />
       </View>
       <RowText
-        first="It's sunny"
-        second={weatherType['Thunderstorm'].message}
+        first={weather[0]?.description}
+        second={weatherType[weatherCondition]?.message}
         styles={{
           wrapper: bodyWrapper,
           firstText: description,
@@ -39,7 +55,7 @@ const CurrentWeather = () => {
 const {
   container,
   wrapper,
-  temp,
+  tempStyles,
   feels,
   highLow,
   highLowWrapper,
@@ -56,16 +72,17 @@ const {
     flex: 1,
     backgroundColor: 'pink'
   },
-  temp: {
-    color: 'black',
-    fontSize: 48
+  tempStyles: {
+    color: '#ffffff',
+    fontSize: 48,
+    fontWeight: 'bold'
   },
   feels: {
-    color: 'black',
-    fontSize: 30
+    color: '#ffffff',
+    fontSize: 24
   },
   highLow: {
-    color: 'black',
+    color: '#ffffff',
     fontSize: 20
   },
   highLowWrapper: {
@@ -74,14 +91,17 @@ const {
   bodyWrapper: {
     justifyContent: 'flex-end',
     alignItems: 'flex-start',
-    paddingLeft: 25,
     marginBottom: 40
   },
   description: {
-    fontSize: 48
+    fontSize: 25,
+    alignSelf: 'center',
+    color: '#ffffff'
   },
   message: {
-    fontSize: 30
+    fontSize: 25,
+    alignSelf: 'center',
+    color: '#ffffff'
   }
 })
 export default CurrentWeather

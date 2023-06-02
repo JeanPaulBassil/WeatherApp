@@ -11,9 +11,11 @@ This Weather Forecast Application is a mobile app built using React Native. It p
 
 ## Screenshots
 
-![Current Weather](./screenshots/currentWeather.jpg)
-![Upcoming Weather](./screenshots/upcomingWeather.jpg)
-![City Weather](./screenshots/cityWeather.jpg)
+<p float="left">
+  <img src="/screenshots/currentWeather.jpg" width="300" />
+  <img src="/screenshots/UpcomingWeather.jpg" width="300" /> 
+  <img src="/screenshots/CityWeather.jpg" width="300" />
+</p>
 
 ## Getting Started
 
